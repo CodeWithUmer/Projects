@@ -1,0 +1,683 @@
+#include<iostream>
+#include<fstream>
+#include<ctime>
+#include<conio.h>
+#include <cstdlib>
+#include <Windows.h>
+#include<string>
+using namespace std;
+const int ROWS = 20;
+const int COLS = 50;
+char arr[ROWS][COLS];
+int a = 10, b = 25;
+int score = 0, health = 3, coin = 0;
+int s_c = 0;
+char e = 2; //FACE EMOJI
+char q = 219;
+int choice = -1;
+string player = "";
+void cover();
+void menu();
+void loading();
+void map();
+void space();
+void runner();
+void removeRunner();
+void police();
+void removePolice();
+void motion();
+void coins();
+void opposition();
+void stats();
+void colors();
+void highscore();
+void credits();
+void play();
+void instructions();
+void honors();
+void high();
+
+int main() {
+	space();
+	srand(time(0));
+
+	cover();
+	loading();
+	system("CLS");
+	Beep(1686, 500);
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\033[031mENTER YOUR NAME : ";
+	getline(cin, player);
+	Beep(1686, 500);
+	system("CLS");
+	menu();
+	if (choice == 1) {
+		play();
+
+	}
+	else if (choice == 2) {
+		instructions();
+	}
+	else if (choice == 3) {
+		system("cls");
+		high();
+	}
+	else if (choice == 4) {
+		honors();
+	}
+	else if (choice == 5) {
+		system("CLS");
+		cout << "\n\n\n\n\n\n\n\n\n\n\t\t\tTHANK YOU FOR PLAYING GAME! GOODBYE!\n\n\n\n\n\n\n" << endl;
+		cout << "\t\t\t";
+		system("pause");
+		return 0;
+	}
+
+	return 0;
+}
+
+void menu() {
+
+	system("color 0a");
+	while (choice == -1) {
+		cout << endl;
+		cout << endl;
+		cout << endl;
+		char c = 2;
+		cout << "\t\t\t\t\t\033[34m";
+		cout << "   " << c << endl;
+		cout << "\t\t\t\t\t";
+		cout << "  /|\\" << endl;
+		cout << "\t\t\t\t\t";
+		cout << "  / \\\033[31m" << endl;
+
+		cout << "\t\t     _____ __   __ _____   _      _____   _____   _____ " << endl;
+		cout << "\t\t    | ____|| \\ | ||  __ \\ | |    | ____| / ____| / ____|" << endl;
+		cout << "\t\t    | |__  |  \\| || |  | || |    | |__  | (___  | (___  " << endl;
+		cout << "\t\t    |  __| | |\\  || |  | || |    |  __|  \\___ \\  \\___ \\" << endl;
+		cout << "\t\t    | |___ | | \\ || |__| || |___ | |___  ____) | ____) |" << endl;
+		cout << "\t\t    |_____||_|  \\||_____/ |_____||_____||_____/ |_____/ " << endl;
+		cout << "\033[34m";
+		cout << "\t\t\t ____   _   _ __   __ __  __ _____  ____ " << endl;
+		cout << "\t\t\t|  _ \\ | | | || \\ | || \\ | || ____||  _ \\" << endl;
+		cout << "\t\t\t| |_) || | | ||  \\| ||  \\| || |__  | |_) |" << endl;
+		cout << "\t\t\t|  _ < | | | || |\\  || |\\  ||  __| |  _ < " << endl;
+		cout << "\t\t\t| | \\ \\| |_| || | \\ || | \\ || |___ | | \\ \\" << endl;
+		cout << "\t\t\t|_|  \\_\\\\___/ |_|  \\||_|  \\||_____||_|  \\_\\ " << endl << endl;
+		cout << "\t\t\t\033[32m____________________________________________________" << endl;
+		cout << "\t\t\t                    \033[34mMAIN MENU\n";
+		cout << "\n\n\t\t\t";
+		cout << "\033[31m1" << "\033[32m.PLAY GAME\n";
+		cout << "\t\t\t";
+		cout << "\033[31m2" << "\033[32m.HOW \033[31mTO \033[32mPLAY\n";
+		cout << "\t\t\t";
+		cout << "\033[31m3" << "\033[32m.HIGH SCORE\n";
+		cout << "\t\t\t";
+		cout << "\033[31m4" << "\033[32m.CREDITS\n";
+		cout << "\t\t\t";
+		cout << "\033[31m5" << "\033[32m.QUIT\033[32m";
+		cout << "\n\t\t\t\033[34mENTER YOUR CHOICE : ";
+		cin >> choice;
+		Beep(1686, 500);
+	}
+
+}
+void loading() {
+	system("color 04");
+	system("CLS");
+	int x = 0;
+	char ch = 221;
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tLOADING\n\t\t\t\t\t ";
+	while (x < 21)
+	{
+		Sleep(100);
+		cout << ch;
+		x++;
+	}
+}
+void map() {
+	Sleep(1);
+	system("CLS");
+	q = 219;
+	char d = 220;
+	cout << "\033[32m";
+	for (int i = 0; i < 52; i++)
+	{
+		cout << d;
+	}
+	cout << endl;
+	for (int i = 0; i < ROWS; i++) {
+		cout << q;
+		for (int j = 0; j < COLS; j++) {
+			if (arr[i][j] == '#') {
+				printf("\033[8;31m");
+				cout << arr[i][j];
+				printf("\033[1;32m");
+			}
+			else if (arr[i][j] == '+') {
+				printf("\033[1;34m");
+				cout << arr[i][j];
+				printf("\033[1;32m");
+			}
+			else if (arr[i][j] == '^') {
+				printf("\033[1;35m");
+				cout << arr[i][j];
+				printf("\033[1;32m");
+			}
+			else if (arr[i][j] == '\\') {
+				printf("\033[1;35m");
+				cout << arr[i][j];
+				printf("\033[1;32m");
+			}
+			else if (arr[i][j] == '/') {
+				printf("\033[1;35m");
+				cout << arr[i][j];
+				printf("\033[1;32m");
+			}
+			else {
+				cout << arr[i][j];
+			}
+		}
+		cout << q;
+		cout << endl;
+	}
+	d = 223;
+	for (int i = 0; i < 52; i++)
+	{
+		cout << d;
+	}
+	cout << endl;
+
+
+}
+void space() {
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			arr[i][j] = ' ';
+		}
+	}
+}
+void runner() {
+	arr[a][b] = '^';
+	arr[a][b - 1] = '\\';
+	arr[a][b + 1] = '/';
+}
+void removeRunner() {
+	arr[a][b] = ' ';
+	arr[a][b - 1] = ' ';
+	arr[a][b + 1] = ' ';
+}
+void police() {
+	if (health == 3) {
+		arr[a + 3][b] = '_';
+		arr[a + 3][b - 1] = '*';
+		arr[a + 3][b + 1] = '*';
+	}
+	else if (health == 2 /*&& arr[a][b] == '^'*/) {
+		arr[a + 2][b] = '_';
+		arr[a + 2][b - 1] = '*';
+		arr[a + 2][b + 1] = '*';
+	}
+	else if (health == 1 /*&& arr[a][b] == '^'*/) {
+		arr[a + 1][b] = '_';
+		arr[a + 1][b - 1] = '*';
+		arr[a + 1][b + 1] = '*';
+	}
+
+}
+void removePolice() {
+
+	arr[a + 3][b] = ' ';
+	arr[a + 3][b - 1] = ' ';
+	arr[a + 3][b + 1] = ' ';
+	arr[a + 2][b] = ' ';
+	arr[a + 2][b - 1] = ' ';
+	arr[a + 2][b + 1] = ' ';
+	arr[a + 1][b] = ' ';
+	arr[a + 1][b - 1] = ' ';
+	arr[a + 1][b + 1] = ' ';
+
+
+}
+void motion() {
+	char ch;
+	if (_kbhit()) {
+		ch = _getch();
+		removeRunner();
+		removePolice();
+		if (ch == 'd' && b < 48) {
+			if (arr[a][b + 2] == '#')
+			{
+				Beep(1000, 500);
+				health--;
+			}
+			if (arr[a][b + 2] == '+')
+			{
+				coin++;
+				if (health < 3) {
+					health++;
+				}
+			}
+			b++;
+		}
+		if (ch == 'a' && b > 1) {
+			if (arr[a][b - 2] == '#')
+			{
+				Beep(1000, 500);
+				health--;
+			}
+			if (arr[a][b - 2] == '+')
+			{
+				coin++;
+				if (health < 3) {
+					health++;
+				}
+			}
+			b--;
+		}
+		if (ch == 's' && a + 3 < 18) {
+			if (arr[a + 1][b] == '#' || arr[a + 1][b - 1] == '#' || arr[a + 1][b + 1] == '#')
+			{
+				Beep(1000, 500);
+				health--;
+			}
+			if (arr[a + 1][b] == '+' || arr[a + 1][b - 1] == '+' || arr[a + 1][b + 1] == '+')
+			{
+				coin++;
+				if (health < 3) {
+					health++;
+				}
+			}
+
+			a++;
+		}
+		if (ch == 'w' && a > 1) {
+			if (arr[a - 1][b] == '#' || arr[a - 1][b - 1] == '#' || arr[a - 1][b + 1] == '#')
+			{
+				Beep(1000, 500);
+				health--;
+			}
+			if (arr[a - 1][b] == '+' || arr[a - 1][b - 1] == '+' || arr[a - 1][b + 1] == '+')
+			{
+				coin++;
+				if (health < 3) {
+					health++;
+				}
+			}
+			a--;
+		}
+		if (ch == ' ' && a > 1) {
+			if (arr[a - 2][b] == '#')
+			{
+				Beep(1000, 500);
+				health--;
+			}
+			if (arr[a - 2][b] == '+')
+			{
+				coin++;
+				if (health < 3) {
+					health++;
+				}
+			}
+			a -= 2;
+		}
+
+	}
+}
+void coins()
+{
+	static int coin_1 = 0, coin_2 = 0;
+	bool coinflag = true;
+	coin_1++;
+	coin_2++;
+
+	if (coin_1 == 8)
+	{
+		coin_1 = 0;
+
+		if (coinflag)
+		{
+			int b = 0;
+			int a = rand() % 48 + 1;
+			if (arr[b][a] == ' ')
+			{
+				arr[b][a] = '+';
+				coinflag = false;
+			}
+		}
+	}
+
+	if (coin_2 == 5)
+	{
+		coin_2 = 0;
+		for (int i = 18; i >= 0; i--)
+		{
+			for (int j = 48; j >= 0; j--)
+			{
+				if (arr[i][j] == '+' && i == 19) {
+					arr[i][j] = ' ';
+				}
+				if (arr[i][j] == '+') {
+					arr[i][j] = ' ';
+					arr[i + 1][j] = '+';
+
+				}
+				if (arr[i][j] == '^' && arr[i - 1][j] == '+') {
+					coin++;
+					if (health < 3) {
+						health++;
+					}
+				}
+				else if (arr[i][j] == '\\' && arr[i - 1][j] == '+') {
+					coin++;
+					if (health < 3) {
+						health++;
+					}
+				}
+				else if (arr[i][j] == '/' && arr[i - 1][j] == '+') {
+					coin++;
+					if (health < 3) {
+						health++;
+					}
+				}
+				else if (arr[i][j] == '\\' && arr[i][j - 1] == '+') {
+					coin++;
+					if (health < 3) {
+						health++;
+					}
+				}
+				else if (arr[i][j] == '/' && arr[i][j + 1] == '+') {
+					coin++;
+					if (health < 3) {
+						health++;
+					}
+				}
+
+				if (arr[19][j] == '+') {
+					arr[19][j] = ' ';
+				}
+			}
+		}
+	}
+}
+void opposition()
+{
+	static int opp_1 = 0, opp_2 = 0;
+	bool opp_Flag = true;
+	opp_1++;
+	opp_2++;
+
+	if (opp_1 == 5)
+	{
+		opp_1 = 0;
+
+		if (opp_Flag)
+		{
+			int b = 0;
+			int a = rand() % 48 + 1;
+			if (arr[b][a] == ' ')
+			{
+				arr[b][a] = '#';
+				opp_Flag = false;
+			}
+		}
+	}
+
+	if (opp_2 == 5)
+	{
+		opp_2 = 0;
+		for (int i = 18; i >= 0; i--) {
+			for (int j = 48; j >= 0; j--) {
+				if (arr[i][j] == '#') {
+					arr[i][j] = ' ';
+					arr[i + 1][j] = '#';
+				}
+				if (arr[19][j] == '#') {
+					arr[19][j] = ' ';
+				}
+				if (arr[i][j] == '^' && arr[i - 1][j] == '#') {
+					Beep(1000, 500);
+					health--;
+
+				}
+				else if (arr[i][j] == '\\' && arr[i - 1][j] == '#') {
+					Beep(1000, 500);
+					health--;
+
+				}
+				else if (arr[i][j] == '/' && arr[i - 1][j] == '#') {
+					Beep(1000, 500);
+					health--;
+
+				}
+				else if (arr[i][j] == '\\' && arr[i][j - 1] == '#') {
+					Beep(1000, 500);
+					health--;
+
+				}
+				else if (arr[i][j] == '/' && arr[i][j + 1] == '#') {
+					Beep(1000, 500);
+					health--;
+				}
+			}
+		}
+	}
+}
+void stats() {
+	const char c = 3;
+	cout << "\033[34mHEALTH : ";
+	if (health == 3) {
+		cout << "\033[31m" << c << " \033[31m" << c << "\033[31m " << c << "\033[31m";
+	}
+	else if (health == 2) {
+		cout << "\033[31m" << c << "\033[31m " << c << "\033[36m";
+	}
+	else if (health == 1) {
+		cout << "\033[31m " << c << "\033[36m";
+	}
+	else {
+		cout << "\033[31m" << health << "\033[37m";
+	}
+	cout << "\n\033[34mCOINS : " << coin;
+	cout << "\n\033[34mSCORE : " << score;
+	cout << "\n\033[34mPLAYER : " << player;
+	if (score >= 0 && score < 200) {
+		cout << "\033[31m";
+	}
+	else if (score >= 200 && score < 400) {
+		cout << "\033[32m";
+	}
+	else if (score >= 400 && score < 600) {
+		cout << "\033[33m";
+	}
+	else if (score >= 600 && score < 800) {
+		cout << "\033[34m";
+	}
+	else if (score >= 800 && score < 1000) {
+		cout << "\033[35m";
+	}
+	else if (score >= 1000 && score < 1200) {
+		cout << "\033[36m";
+	}
+	else if (score >= 1200 && score < 1400) {
+		cout << "\033[31m";
+	}
+	cout << endl;
+	/*cout << "\033[34m";*/
+}
+void colors() {
+	system("color 0a");
+	Beep(1047, 100);
+	system("color 0c");
+	Beep(1319, 100);
+	system("color 0e");
+	Beep(1568, 100);
+	system("color 01");
+	Beep(2093, 200);
+	system("color 06");
+}
+void highscore() {
+	int hif = 0;
+	int temp = 0;
+	ifstream inhiscore;
+	inhiscore.open("Highscore.txt");
+	if (!(inhiscore.is_open())) {
+		cout << "Error Displaying High Scores!";
+	}
+	inhiscore >> hif;
+	temp = hif;
+	inhiscore.close();
+
+	ofstream Write;
+	Write.open("Highscore.txt");
+	if (!(Write.is_open())) {
+		cout << "Error Displaying High Scores!";
+	}
+	if (score > temp) {
+		Write << score;
+		cout << "CONGRATULATIONS!\n\t\t\t\t\tYOU HAVE MADE A NEW HIGHSCORE! ";
+		cout << "\n\t\t\t\t\t\tHighscore : " << score << endl;
+	}
+	else {
+		Write << temp;
+		cout << "HIGHSCORE : " << temp << endl;
+	}
+	Write.close();
+}
+void credits() {
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "\n\n\n\n\n\n\t\t\t\t\t\t";
+	highscore();
+	cout << "\n\n\n\n\n\n\t\t\t\t\t\t";
+	char d = 220;
+	for (int i = 0; i < 13; i++)
+	{
+		cout << d;
+	}
+	cout << "\n\n\t\t\t\t\t\t  GAME OVER";
+	cout << "\n\n\t\t\t\t\t\t";
+	d = 223;
+	for (int i = 0; i < 13; i++)
+	{
+		cout << d;
+	}
+	cout << "\n\n\n\n\n\n\n\n\n";
+}
+void cover() {
+	system("color 0a");
+	char c = 2;
+	for (int i = 0; i < 50; i++) {
+		cout << endl;
+		cout << endl;
+		cout << endl;
+		cout << endl;
+		cout << endl;
+		if (i % 2 == 0) {
+			cout << "\t\t\t\t\t";
+			cout << "   " << c << endl;
+			cout << "\t\t\t\t\t";
+			cout << "  /|\\" << endl;
+			cout << "\t\t\t\t\t";
+			cout << "  > >" << endl;
+		}
+		else {
+			cout << "\t\t\t\t\t";
+			cout << "   " << c << endl;
+			cout << "\t\t\t\t\t";
+			cout << "  /|\\" << endl;
+			cout << "\t\t\t\t\t";
+			cout << "  / \\" << endl;
+		}
+		cout << "\033[34m";
+		cout << "\t\t     _____ __   __ _____   _      _____   _____   _____ " << endl;
+		cout << "\t\t    | ____|| \\ | ||  __ \\ | |    | ____| / ____| / ____|" << endl;
+		cout << "\t\t    | |__  |  \\| || |  | || |    | |__  | (___  | (___  " << endl;
+		cout << "\t\t    |  __| | |\\  || |  | || |    |  __|  \\___ \\  \\___ \\" << endl;
+		cout << "\t\t    | |___ | | \\ || |__| || |___ | |___  ____) | ____) |" << endl;
+		cout << "\t\t    |_____||_|  \\||_____/ |_____||_____||_____/ |_____/ " << endl;
+		cout << "\033[31m";
+		cout << "\t\t\t ____   _   _ __   __ __  __ _____  ____ " << endl;
+		cout << "\t\t\t|  _ \\ | | | || \\ | || \\ | || ____||  _ \\" << endl;
+		cout << "\t\t\t| |_) || | | ||  \\| ||  \\| || |__  | |_) |" << endl;
+		cout << "\t\t\t|  _ < | | | || |\\  || |\\  ||  __| |  _ < " << endl;
+		cout << "\t\t\t| | \\ \\| |_| || | \\ || | \\ || |___ | | \\ \\" << endl;
+		cout << "\t\t\t|_|  \\_\\\\___/ |_|  \\||_|  \\||_____||_|  \\_\\ " << endl << endl;
+		cout << "\033[31m";
+		Sleep(10);
+		system("CLS");
+	}
+
+}
+void play() {
+	while (health > 0) {
+		score++;
+		s_c = score;
+		runner();
+		map();
+		motion();
+		coins();
+		opposition();
+		stats();
+		if (score > 200) {
+			police();
+		}
+	}
+
+	system("CLS");
+	credits();
+	colors();
+}
+void instructions() {
+	system("CLS");
+	cout << "\n\n\n\t\t\tHOW \033[31mTO \033[32mPLAY :";
+
+	cout << "\n\n\t\t\t\033[31m1\033[32m. USE THE 'a''s''d''w' TO MOVE THE PLAYER LEFT, RIGHT, UP, DOWN";
+	cout << "\n\t\t\t\033[31m2\033[32m. PRESS SPACE BAR TO JUMP ";
+	cout << "\n\t\t\t\033[31m3\033[32m. COLLECT COINS TO INCREASE SCORE QUICKLY AND IT WILL INCREASE 1 HEALTH";
+	cout << "\n\t\t\t\033[31m4\033[32m. YOU HAVE 3 HEALTH AT THE START OF THE GAME";
+	cout << "\n\t\t\t\033[31m5\033[32m. DODGE OBSTACLES BY JUMPING OVER THEM OR MOVING LEFT OR RIGHT.";
+	cout << "\n\t\t\t\033[31m6\033[32m. THE GAME WILL END IF YOU HAVE NO HEALTH";
+
+	cout << "\n\n\n\t\t\tCHARACTERS \n";
+	cout << "\n\t\t\t\033[32mPLAYER :\033[31m'\\^/' ";
+	cout << "\n\t\t\t\033[32mCOINS  :\033[31m '+' ";
+	cout << "\n\t\t\t\033[32mENEMY  :\033[31m '#'  ";
+	cout << "\n\t\t\t\033[32mPOLICE :\033[31m'*_*' ";
+	cout << "\n\t\t\t\033[32mKEEP RUNNING & HAVE FUN!\n";
+	char choice1 = 0;
+	cout << "\t\t\tPRESS ANY KEY TO ADVANCE TO THE GAME : ";
+	cin >> choice1;
+	Beep(1686, 500);
+	if (choice1 != 0) {
+		system("CLS");
+		play();
+	}
+
+}
+void honors() {
+	char choice1 = 0;
+	system("CLS");
+
+	cout << "\n\n\t\t\t\033[34mGAME HONORS & CREDITS\n\n";
+	cout << "\t\t\tTHE ENDLESS RUNNER GAME\n\n";
+	cout << "\t\t\t\033[31mDEVELOPED BY :\n\n";
+	cout << "\t\t\tMUHAMMAD UMER\n";
+	cout << "\t\t\t\033[32mINSTRUCTED BY :\n\n\t\t\t\033[32mALI RAZA\n\n";
+	cout << "\t\t\t\033[34m";
+	system("pause");
+	Beep(1686, 500);
+	system("CLS");
+	play();
+}
+void high() {
+	char choice1;
+	cout << "\n\n\n\n\n\n\t\t\t\t\t    ";
+	highscore();
+	cout << "\n\n\t\t\t\t";
+	system("pause");
+	Beep(1686, 500);
+	system("CLS");
+	play();
+}
